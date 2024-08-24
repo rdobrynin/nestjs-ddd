@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   postgres:
     image: postgres:14.1-alpine
@@ -21,24 +21,24 @@ services:
     ports:
       - "5050:80"
 
-  nestjs_ddd:
+  api:
     env_file:
       - .env
-    container_name: nestjs_ddd
+    container_name: api
     restart: unless-stopped
     build:
       dockerfile: Dockerfile
       context: .
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
     command: bash -c "yarn run start:dev"
     depends_on:
       - postgres
       - redis
     ports:
-      - '3002:3002'
+      - ${PORT}:${PORT}
       - '9229:9229'
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
 
   mailhog:
     image: mailhog/mailhog
