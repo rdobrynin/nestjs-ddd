@@ -30,7 +30,6 @@ module.exports = {
   ],
   plugins: [
     '@typescript-eslint',
-    '@typescript-eslint/eslint-plugin-tslint',
     'prettier',
     'simple-import-sort',
     'import',
